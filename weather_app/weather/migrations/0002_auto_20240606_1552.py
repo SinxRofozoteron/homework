@@ -22,7 +22,12 @@ def populate_city_table(*args):
 
             try:
                 with transaction.atomic():
-                    city = City(name=row[1].lower())
+                    city = City(
+                        name=row[1].lower(),
+                        country=row[4].lower(),
+                        lat=row[2],
+                        lng=row[3],
+                    )
                     city.save()
             except IntegrityError:
                 continue
