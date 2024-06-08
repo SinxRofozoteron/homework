@@ -28,7 +28,10 @@ cityInputEl.addEventListener("input", e => {
         cityInputTimer = setTimeout(() => {
             checkCityName(cityName).then(result => {
                 if (Array.isArray(result)) {
-                    elementsStrs = result.map(suggestion => `<a>${suggestion}</a>`)
+                    elementsStrs = result.map(suggestion => {
+                        [city, country] = suggestion
+                        return `<a>${city}, ${country}</a>`
+                    })
                     helperTextEl.innerHTML = `<p>Did you mean: ${elementsStrs.join(", ")}?</p>`
                     if (!helperTextEl.isConnected) {
                         inputContainer.insertAdjacentElement('afterend', helperTextEl)
