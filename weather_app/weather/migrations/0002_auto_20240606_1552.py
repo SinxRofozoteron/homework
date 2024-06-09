@@ -23,8 +23,8 @@ def populate_city_table(*args):
             try:
                 with transaction.atomic():
                     city = City(
-                        name=row[1].capitalize(),
-                        country=row[4].capitalize(),
+                        name=row[1].title(),
+                        country=row[4].title(),
                         lat=row[2],
                         lng=row[3],
                     )

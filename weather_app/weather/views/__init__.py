@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from .get_weather import *
 from .verify_city import *
 
 

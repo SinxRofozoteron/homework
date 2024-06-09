@@ -5,13 +5,14 @@ from weather.models import City
 
 # check if city exists in the database
 # and return suggestions if not
+# If no suggestions return False
 def check_city(user_input: str):
     normalized = user_input.replace(",", "")
     city, *country = normalized.split(" ")
     city, country = city.capitalize(), country[0].capitalize() if country else None
 
     try:
-        if country and City.objects.get(name=city, country=country[0]):
+        if country and City.objects.get(name=city, country=country):
             return True
 
         foundCities = City.objects.filter(name=city).values_list("name", "country")
@@ -29,11 +30,9 @@ def check_city(user_input: str):
         )
 
         if country:
-            all_countries = City.objects.distinct("country").values_list(
-                "country", flat=True
-            )
+            all_countries = City.objects.values_list("country", flat=True).distinct()
             closest_country_matches = difflib.get_close_matches(
-                country[0], all_countries, n=5, cutoff=0.8
+                country, all_countries, n=5, cutoff=0.8
             )
             closest_matches_with_countries = City.objects.filter(
                 name__regex=f"^({"|".join(closest_city_matches)})$",
@@ -46,4 +45,4 @@ def check_city(user_input: str):
 
         foundCities = closest_matches_with_countries.values_list("name", "country")
 
-    return list(foundCities)
+    return list(foundCities) if len(foundCities) > 0 else False
