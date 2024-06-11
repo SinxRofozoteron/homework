@@ -1,10 +1,10 @@
 # Weather app
 
 Assumptions:
-- User needs to type in the city name followed by comma, space and the country name correctly to get the weather.
-- If user typed in only a city name without a country, suggestions are displayed to clarify the city and the country
-- If user misspells either a city or a country name, suggestions are displayed to clarify the desired location
-- For the purpuse of this demo only temperature, percipitation and wind speed info is displayed as weather conditions
+- The user needs to enter the city name followed by a comma, a space, and the country name correctly to get the weather.
+- If the user types in only a city name without a country, suggestions are displayed to clarify the city and the country.
+- If the user misspells either a city or country name, suggestions are displayed to clarify the desired location.
+- For the purpose of this demo, only temperature, precipitation, and wind speed information is displayed as weather conditions.
 
 ## Setup
 1. Create virtual env and activate it:
