@@ -10,7 +10,7 @@ def check_city(user_input: str):
     separated = user_input.split(",")
     city = separated[0].strip().title()
     country = separated[1].strip().title() if len(separated) > 1 else None
-    print(city, country)
+
     try:
         if country and City.objects.get(name=city, country=country):
             return True
