@@ -4,7 +4,7 @@ const searchButton = document.querySelector("button");
 
 let cityInputTimer;
 const checkCityName = async userInput => {
-    response = await fetch(`/weather/check-city/${userInput}`);
+    response = await fetch(`/check-city/${userInput}`);
 
     switch (response.status) {
         case 204:
@@ -68,7 +68,7 @@ const renderSuggestions = suggestions => {
 }
 
 const getWeather = async userInput => {
-    response = await fetch(`/weather/${userInput}`);
+    response = await fetch(`/${userInput}`);
     return response;
 }
 
@@ -99,7 +99,7 @@ const getWeatherEventHandler = async (e) => {
     e.preventDefault();
 
     userInput = cityInputEl.value;
-    response = await fetch(`/weather/${userInput}`);
+    response = await fetch(`/${userInput}`);
     const data = await response.json();
 
     if (response.status === 400) {
