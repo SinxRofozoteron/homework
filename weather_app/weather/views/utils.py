@@ -7,10 +7,10 @@ from weather.models import City
 # and return suggestions if not
 # If no suggestions return False
 def check_city(user_input: str):
-    normalized = user_input.replace(",", "")
-    city, *country = normalized.split(" ")
-    city, country = city.capitalize(), country[0].capitalize() if country else None
-
+    separated = user_input.split(",")
+    city = separated[0].strip().title()
+    country = separated[1].strip().title() if len(separated) > 1 else None
+    print(city, country)
     try:
         if country and City.objects.get(name=city, country=country):
             return True
@@ -20,7 +20,7 @@ def check_city(user_input: str):
             raise City.DoesNotExist
 
         if len(foundCities) == 1:
-            return True
+            return list(foundCities)
 
         return list(foundCities)
     except City.DoesNotExist:
@@ -28,6 +28,8 @@ def check_city(user_input: str):
         closest_city_matches = difflib.get_close_matches(
             city, all_names, n=5, cutoff=0.8
         )
+        if not closest_city_matches:
+            return False
 
         if country:
             all_countries = City.objects.values_list("country", flat=True).distinct()

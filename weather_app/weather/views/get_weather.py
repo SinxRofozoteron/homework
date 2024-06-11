@@ -13,9 +13,9 @@ openmeteo = openmeteo_requests.Client(session=retry_session)
 
 
 def get_weather(_, user_input: str):
-    normalized = user_input.replace(",", "")
-    city, *country = normalized.split(" ")
-    city, country = city.capitalize(), country[0].capitalize() if country else None
+    separated = user_input.split(",")
+    city = separated[0].strip().title()
+    country = separated[1].strip().title() if len(separated) > 1 else None
     if country:
         try:
             record = City.objects.get(name=city, country=country)

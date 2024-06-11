@@ -26,8 +26,9 @@ const renderWeather = ({ temperature, precipitation, wind_speed, city, country }
     }
 
     currentWeatherEl = document.createElement("div");
+    currentWeatherEl.classList.add("weather-container")
     currentWeatherEl.innerHTML = `
-        <p id="weather-presntation-label">Current weather in ${city}, ${country}</p>
+        <h1>Current weather in ${city}, ${country}</h1>
         <div class="weather-grid">
             <div>
                 <p>Temperature</p>
@@ -35,11 +36,11 @@ const renderWeather = ({ temperature, precipitation, wind_speed, city, country }
             </div>
             <div>
                 <p>Precipitation</p>
-                <p>${precipitation} mm</p>
+                <p>${precipitation.toFixed(2)} mm</p>
             </div>
             <div>
                 <p>Wind speed</p>
-                <p>${Math.round(wind_speed)}kmh</p>
+                <p>${Math.round(wind_speed)} kmh</p>
         </div>
     `
     document.body.appendChild(currentWeatherEl);
@@ -102,7 +103,14 @@ const getWeatherEventHandler = async (e) => {
     const data = await response.json();
 
     if (response.status === 400) {
-        renderSuggestions(data['suggestions']);
+        if (data['suggestions']) {
+            renderSuggestions(data['suggestions']);
+        } else {
+            // No suggestions, city does not exist.
+            // Render error message
+            helperTextEl.innerHTML = '<p class="error-message">Unable to find weather for the provided city.</p>'
+            helperTextEl.classList.add("open")
+        }
     } else if (response.status === 200) {
         renderWeather(data);
     }

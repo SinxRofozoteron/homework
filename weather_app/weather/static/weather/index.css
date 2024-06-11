@@ -15,7 +15,7 @@ form {
     color: black;
 }
 
-form > div {
+form > div, .weather-container {
     width: auto;
     background-color: rgba(255, 255, 255, 0.9);
     display: flex;
@@ -82,4 +82,18 @@ form button {
 .drawer li:hover {
     cursor: pointer;
     color: #08E8DE;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.weather-grid p {
+    font-size: 1.5rem;
+}
+
+.error-message {
+    color: #990F02;
 }
